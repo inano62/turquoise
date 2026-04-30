@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
 import { getDB } from "../db";
+import { cors } from "../_cors";
+
+export async function OPTIONS() {
+  return new Response(null, { status: 204, headers: cors() });
+}
 
 export async function GET() {
   const db = await getDB();
