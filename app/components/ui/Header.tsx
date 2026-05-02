@@ -37,10 +37,10 @@ export function Header() {
 
                 <nav className="flex gap-6 text-gray-600">
                     <Link href={"/"} className="hover:text-citrus-500 transition">Home</Link>
-                    <Link href={"admin"} className="hover:text-citrus-500 transition">Admin</Link>
-                    <Link href={"admin/dashboard"} className="hover:text-citrus-500 transition">Dashboard</Link>
-                    <Link href={"signup"} className="hover:text-citrus-500 transition">アカウント作成</Link>
-                    <Link href={"login"} className="hover:text-citrus-500 transition">ログイン</Link>
+                    <Link href={"/admin"} className="hover:text-citrus-500 transition">Admin</Link>
+                    <Link href={"/admin/dashboard"} className="hover:text-citrus-500 transition">Dashboard</Link>
+                    <Link href={"/signup"} className="hover:text-citrus-500 transition">アカウント作成</Link>
+                    <Link href={"/login"} className="hover:text-citrus-500 transition">ログイン</Link>
                 </nav>
             </div>
         </header>
