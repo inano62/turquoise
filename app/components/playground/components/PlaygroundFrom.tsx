@@ -11,6 +11,11 @@ export function PlaygroundForm({ onAdd }: { onAdd: (item: any) => void }) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
+    // ★ JWT から userId を取り出す（インビジブル）
+    const token = localStorage.getItem("token");
+    const payload = token ? JSON.parse(atob(token.split(".")[1])) : null;
+    const userId = payload?.userId;
+
     // ① 楽観的 UI：仮データを即追加
     const tempId = "temp-" + Math.random().toString(36).slice(2);
     const optimisticItem = {
@@ -18,15 +23,16 @@ export function PlaygroundForm({ onAdd }: { onAdd: (item: any) => void }) {
       title,
       author,
       text,
+      userId, // ← UI に出さないけど内部で保持
       createdAt: new Date().toISOString(),
       optimistic: true,
     };
     onAdd(optimisticItem);
 
-    // ② DB に送信
+    // ② DB に送信（userId を含める）
     const res = await fetch("/api/playground", {
       method: "POST",
-      body: JSON.stringify({ title, author, text }),
+      body: JSON.stringify({ title, author, text, userId }),
     });
     const data = await res.json();
 

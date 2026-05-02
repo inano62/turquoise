@@ -4,13 +4,14 @@ import { ObjectId } from "mongodb";
 
 // CREATE
 export async function POST(req: Request) {
-  const { title, date, author, text } = await req.json();
+  const { title, date, author, userId,text } = await req.json();
   const db = await getDB();
 
   const result = await db.collection("playground").insertOne({
     title,
     date,
     author,
+    userId,
     text,
     createdAt: new Date(),
   });
@@ -28,12 +29,12 @@ export async function GET() {
 
 // UPDATE
 export async function PUT(req: Request) {
-  const { id, title, date, author, text } = await req.json();
+  const { id, title, date, author,userId, text } = await req.json();
   const db = await getDB();
 
   await db.collection("playground").updateOne(
     { _id: new ObjectId(id) },
-    { $set: { title, date, author, text } }
+    { $set: { title, date, author, userId,text } }
   );
 
   return NextResponse.json({ ok: true });

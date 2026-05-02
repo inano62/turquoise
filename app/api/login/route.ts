@@ -16,22 +16,29 @@ export async function POST(req: Request) {
   if (!ok) {
     return NextResponse.json({ ok: false }, { status: 401 });
   }
+const token = jwt.sign(
+  {
+    uid: user._id.toString(),
+    email,
+    homepageSlug: user.profile?.homepageSlug ?? "",
+    displayName: user.profile?.displayName ?? "",
+  },
+  process.env.JWT_SECRET!,
+  { expiresIn: "7d" }
+);
 
-  const token = jwt.sign(
-    { uid: user._id.toString(), email },
-    process.env.JWT_SECRET!,
-    { expiresIn: "7d" }
-  );
+const res = NextResponse.json({
+  ok: true,
+  slug: user.profile?.homepageSlug ?? ""
+});
 
-  const res = NextResponse.json({ ok: true });
+res.cookies.set("session", token, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  path: "/",
+  maxAge: 60 * 60 * 24 * 7,
+});
 
-  res.cookies.set("session", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7,
-  });
-
-  return res;
+return res;
 }

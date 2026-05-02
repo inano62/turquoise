@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
@@ -10,13 +12,23 @@ export default function LoginPage() {
   const login = async () => {
     const res = await fetch("/api/login", {
       method: "POST",
-      credentials: "include", // ← Cookie を受け取る
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
 
     const data = await res.json();
-    setMsg(data.ok ? "ログイン成功！" : "ログイン失敗…");
+
+    if (!data.ok) {
+      setMsg("ログイン失敗…");
+      return;
+    }
+
+    // ★ Cookie は HttpOnly なので読まない
+    // ★ API が返した slug を使う
+    const slug = data.slug;
+
+    router.push(`/u/${slug}`);
   };
 
   return (

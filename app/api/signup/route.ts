@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getDB } from "../db";
+import { getDB } from "@/api/db";
 import bcrypt from "bcryptjs";
 
 export async function POST(req: Request) {
@@ -13,11 +13,17 @@ export async function POST(req: Request) {
 
   const hashed = await bcrypt.hash(password, 10);
 
-  await db.collection("users").insertOne({
-    email,
-    password: hashed,
-    createdAt: new Date(),
-  });
+await db.collection("users").insertOne({
+  email,
+  password: hashed,
+  createdAt: new Date(),
+  profile: {
+    displayName: email.split("@")[0],
+    bio: "",
+    avatar: "/default.png",
+    homepageSlug: email.split("@")[0]
+  }
+});
 
   return NextResponse.json({ ok: true });
 }
