@@ -1,9 +1,13 @@
-import "./globals.css"
+import "./globals.css";
+import { Header } from "@/components/ui/Header";
 
-export default function RootLayout({ children }:any) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  )
+export default function RootLayout({ children }) {
+    return (
+        <html lang="ja">
+        <body>
+        <Header />
+        {children}
+        </body>
+        </html>
+    );
 }

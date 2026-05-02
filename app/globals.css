@@ -24,3 +24,13 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+@theme inline {
+  --color-turquoise-900: #0d3b3f;
+  --color-turquoise-800: #0f4a4f;
+
+  --color-citrus-400: #d7ff5f;
+  --color-citrus-500: #c4ff3d;
+
+  --color-pink-soft: #ffdce7;
+  --color-pink-gold: #f7e4d9;
+}
