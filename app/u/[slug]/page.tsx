@@ -1,26 +1,30 @@
 import { getDB } from "@/api/db";
 import { cookies } from "next/headers";
+import {resolve} from "node:dns";
 
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const db = await getDB();
-
+  const { slug } = await params;
   // ① slug からユーザーを取得
 const user = await db.collection("users").findOne({
-  "profile.homepageSlug": params.slug
+  "profile.homepageSlug": slug
 }) || await db.collection("users").findOne({
-  email: params.slug
+  email:  decodeURIComponent(slug)
 });
 
-  if (!user) {
-    return( 
-        <div className="p-10 text-red-600">ユーザーが見つかりません
-            <pre className="bg-gray-100 p-4 rounded">
-                {JSON.stringify(params, null, 2)}
-            </pre>
-        </div>
-    )
-  }
+    if (!user) {
+        const resolved = await params; // ← ここが重要
+
+        return (
+            <div className="p-10 text-red-600">
+                ユーザーが見つかりません
+                <pre className="bg-gray-100 p-4 rounded">
+          {JSON.stringify(resolved, null, 2)}
+        </pre>
+            </div>
+        );
+    }
 
   // ② このユーザーの投稿を取得
   const posts = await db
