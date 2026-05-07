@@ -16,7 +16,7 @@ export async function getDB(): Promise<Db> {
     client = new MongoClient(uri!);
   }
 
-  await client.connect(); // v5 以降はこれだけでOK
+  await client.connect(); 
 
   db = client.db(process.env.DB_NAME || "turquoise");
   return db;
