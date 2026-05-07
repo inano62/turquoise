@@ -24,33 +24,40 @@ export default function LoginPage() {
       return;
     }
 
-    // ★ Cookie は HttpOnly なので読まない
-    // ★ API が返した slug を使う
-    const slug = data.slug;
-
-    router.push(`/u/${slug}`);
+    router.push(`/u/${data.slug}`);
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>Login</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
 
-      <input
-        placeholder="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      /><br/>
+        <div className="flex flex-col gap-4">
+          <input
+            placeholder="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="border p-3 rounded w-full focus:ring focus:ring-blue-300"
+          />
 
-      <input
-        placeholder="password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      /><br/>
+          <input
+            placeholder="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="border p-3 rounded w-full focus:ring focus:ring-blue-300"
+          />
 
-      <button onClick={login}>Login</button>
+          <button
+            onClick={login}
+            className="bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition"
+          >
+            Login
+          </button>
 
-      <p>{msg}</p>
+          <p className="text-center text-red-500">{msg}</p>
+        </div>
+      </div>
     </div>
   );
 }
