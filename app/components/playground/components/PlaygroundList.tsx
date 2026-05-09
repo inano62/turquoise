@@ -31,36 +31,43 @@ export function PlaygroundList() {
     setEditText(item.text || "");
   }
 
-  async function handleSave(id: string) {
-    await fetch("/api/playground", {
-      method: "PUT",
-      body: JSON.stringify({
-        id,
-        title: editTitle,
-        author: editAuthor,
-        text: editText,
-      }),
-    });
+async function handleSave(id: string) {
+  await fetch("/api/playground", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id,
+      title: editTitle,
+      author: editAuthor,
+      text: editText,
+    }),
+  });
 
-    setItems((prev) =>
-      prev.map((item) =>
-        item._id === id
-          ? { ...item, title: editTitle, author: editAuthor, text: editText }
-          : item
-      )
-    );
+  setItems((prev) =>
+    prev.map((item) =>
+      item._id === id
+        ? { ...item, title: editTitle, author: editAuthor, text: editText }
+        : item
+    )
+  );
 
-    setEditingId(null);
-  }
+  setEditingId(null);
+}
 
-  async function handleDelete(id: string) {
-    await fetch("/api/playground", {
-      method: "DELETE",
-      body: JSON.stringify({ id }),
-    });
 
-    setItems((prev) => prev.filter((item) => item._id !== id));
-  }
+async function handleDelete(id: string) {
+  await fetch("/api/playground", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id }),
+  });
+
+  setItems((prev) => prev.filter((item) => item._id !== id));
+}
 
   async function load() {
     const res = await fetch("/api/playground");
