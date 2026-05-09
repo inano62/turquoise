@@ -9,10 +9,13 @@ export default function Dashboard() {
     accessToday: 0,
     errors: 0
   })
-
+  type Question = {
+  _id: string;
+  title: string;
+  createdAt: string;
+};
   const [recentLogs, setRecentLogs] = useState([])
-  const [recentQuestions, setRecentQuestions] = useState([])
-
+  const [recentQuestions, setRecentQuestions] = useState<Question[]>([])
   useEffect(() => {
     fetch("/api/admin/dashboard")
       .then((res) => res.json())
@@ -49,7 +52,7 @@ export default function Dashboard() {
       <section>
         <h3 className="text-xl font-bold mb-2">最近追加された過去問</h3>
         <ul className="border rounded divide-y">
-          {recentQuestions.map((q) => (
+          {recentQuestions.map((q:any) => (
             <li key={q._id} className="p-3 flex justify-between">
               <span>{q.title}</span>
               <span className="text-gray-500">{q.createdAt}</span>

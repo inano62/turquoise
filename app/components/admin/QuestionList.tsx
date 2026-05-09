@@ -1,12 +1,21 @@
 import { useEffect, useState } from "react";
 
 export default function QuestionList() {
-  const [questions, setQuestions] = useState([]);
+  type Question = {
+  _id: string;
+  title: string;
+  published: boolean;
+  createdAt?: string;
+};
 
+  const [questions, setQuestions] = useState<Question[]>([]);
   useEffect(() => {
-    fetch("/api/admin/questions")
-      .then((res) => res.json())
-      .then((data) => setQuestions(data.questions));
+    async function load() {
+      const res = await fetch("/api/admin/questions");
+      const data: Question[] = await res.json();
+      setQuestions(data);
+    }
+    load();
   }, []);
 
   return (

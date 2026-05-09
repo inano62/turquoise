@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 
 export default function UserList() {
-  const [users, setUsers] = useState([]);
+  type Users = {
+    _id:string;
+    email:string;
+    role:boolean;
+  }
+  const [users, setUsers] = useState<Users[]>([]);
 
   useEffect(() => {
     fetch("/api/admin/users")
