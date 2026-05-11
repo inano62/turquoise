@@ -1,0 +1,6 @@
+#MONGODB_URI="mongodb://localhost:27017"
+#MONGODB_URI=mongodb://0.0.0.0:27017
+MONGODB_URI="mongodb+srv://Vercel-Admin-atlas-camel-drum:070740238Inano@atlas-camel-drum.ukvhr2e.mongodb.net/?appName=atlas-camel-drum/citrus"
+DB_NAME="turquoise"
+JWT_SECRET=supersecretkey_ina_no_2026
+DATABASE_URL="postgresql://inano:password@localhost:5432/myapp"
