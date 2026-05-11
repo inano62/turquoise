@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export function Header() {
+export function Turquoise() {
     return (
       //   <header
       //       className="

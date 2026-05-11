@@ -1,23 +1,27 @@
-import { PlaygroundForm } from "@/components/playground/components/PlaygroundFrom";
-import { PlaygroundList } from "@/components/playground/components/PlaygroundList";
+import Hero from "./components/Hero";
+import ServicesList from "./components/ServicesList";
 
-export default function Page() {
+async function getServices() {
+  try {
+    const res = await fetch("http://localhost:3000/api/services", {
+      cache: "no-store",
+    });
+
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+export default async function Page() {
+  const services = await getServices();
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-teal-900 to-cyan-800 p-10">
-      <div className="bg-white rounded-3xl shadow-sm p-10 w-full max-w-2xl mx-auto">
-        <h1 className="text-3xl font-semibold text-gray-800">
-          Playground
-        </h1>
-
-        <p className="mt-2 text-gray-500">
-          API → DB → UI の実験場
-        </p>
-
-
-        <div className="mt-10">
-          <PlaygroundList />
-        </div>
-      </div>
+    <main className="min-h-screen bg-gray-50">
+      <Hero />
+      <ServicesList services={services} />
     </main>
   );
 }

@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import {resolve} from "node:dns";
 
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function Page({ params }: { params:Promise<{ slug: string }> }) {
   const db = await getDB();
   const { slug } = await params;
   // ① slug からユーザーを取得
@@ -14,7 +14,7 @@ const user = await db.collection("users").findOne({
 });
 
     if (!user) {
-        const resolved = await params; // ← ここが重要
+        const resolved = await params; 
 
         return (
             <div className="p-10 text-red-600">

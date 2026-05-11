@@ -1,13 +1,13 @@
 import "./globals.css";
-import { Header } from "@/components/ui/Header";
+import BrandSwitcher from "@/components/ui/BrandSwitcher";
 
-export default function RootLayout({ children }:any) {
-    return (
-        <html lang="ja">
-        <body>
-        <Header />
+export default function RootLayout({ children }: any) {
+  return (
+    <html lang="ja">
+      <body>
+        <BrandSwitcher />
         {children}
-        </body>
-        </html>
-    );
+      </body>
+    </html>
+  );
 }
