@@ -1,16 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  assetPrefix: "/proxy/3000",
+
   experimental: {
-    optimizeCss: false, // LightningCSS を完全停止
-         // Next.js の CSS パイプラインを完全停止
+    optimizeCss: false,
   },
-turbopack: {},
+
+  turbopack: {},
+
   webpack: (config) => {
-    // Rust バイナリ (.node) を読み込まないようにする
     config.module.rules.push({
       test: /\.node$/,
-      use: 'raw-loader',
+      use: "raw-loader",
     });
 
     return config;
