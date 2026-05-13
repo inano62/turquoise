@@ -168,3 +168,8 @@ sudo service postgresql start
 - Citrus Admin を PostgreSQL 版に作り直す
 
 選んでくれたら、いなの専用の手順を続けて作るよ。
+
+MONGODB_URI="mongodb://localhost:27017"
+DB_NAME="turquoise"
+JWT_SECRET=supersecretkey_ina_no_2026
+DATABASE_URL="postgresql://inano:password@localhost:5432/myapp"
