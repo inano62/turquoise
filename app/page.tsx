@@ -10,7 +10,7 @@ async function getServices() {
     if (!res.ok) return [];
     const data = await res.json();
     return Array.isArray(data) ? data : [];
-  } catch (e) {
+  } catch {
     return [];
   }
 }
@@ -19,9 +19,9 @@ export default async function Page() {
   const services = await getServices();
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <Hero />
-      <ServicesList services={services} />
-    </main>
+      <main className="min-h-screen bg-gray-100">
+        <Hero />
+        <ServicesList services={services} />
+      </main>
   );
 }
